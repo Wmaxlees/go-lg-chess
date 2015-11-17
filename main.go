@@ -3,28 +3,22 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"github.com/Wmaxlees/go-lg-chess/boards"
 	"os"
 	"strings"
 )
 
-const (
-	Pawn   byte = iota
-	Rook   byte = iota
-	Knight byte = iota
-	Bishop byte = iota
-	Queen  byte = iota
-	King   byte = iota
-)
-
 var piece byte
-var startX byte
-var startY byte
-var goalX byte
-var goalY byte
+var startX int
+var startY int
+var goalX int
+var goalY int
 
 func main() {
 	getOptions()
 
+	boards.InitMatrices()
+	boards.GetEllipse(piece, startX, startY, goalX, goalY)
 }
 
 func getOptions() {
@@ -45,22 +39,22 @@ func getOptions() {
 		text = strings.TrimSpace(text)
 
 		if text == "pawn" {
-			piece = Pawn
+			piece = boards.Pawn
 			break
 		} else if text == "rook" {
-			piece = Rook
+			piece = boards.Rook
 			break
 		} else if text == "knight" {
-			piece = Knight
+			piece = boards.Knight
 			break
 		} else if text == "bishop" {
-			piece = Bishop
+			piece = boards.Bishop
 			break
 		} else if text == "queen" {
-			piece = Queen
+			piece = boards.Queen
 			break
 		} else if text == "king" {
-			piece = King
+			piece = boards.King
 			break
 		} else {
 			fmt.Println("Invalid Piece")
