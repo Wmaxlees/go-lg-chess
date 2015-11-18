@@ -1,7 +1,7 @@
 package boards
 
 import (
-	"fmt"
+	// "fmt"
 	"github.com/Wmaxlees/go-lg-chess/node"
 	"github.com/gonum/plot"
 	"github.com/gonum/plot/plotter"
@@ -23,6 +23,8 @@ var myPlot *plot.Plot
 var total int
 var theGoalX int
 var theGoalY int
+
+var HoleBoard *matrix.DenseMatrix
 
 func createSubPlots(root *node.Node, pts plotter.XYs, depth int) {
 	if pts == nil {
@@ -154,7 +156,7 @@ func GetEllipse(piece byte, startX int, startY int, goalX int, goalY int, maxLen
 		}
 	}
 
-	fmt.Println(root)
+	// fmt.Println(root)
 
 	myPlot, _ = plot.New()
 	// Create the board
@@ -487,7 +489,11 @@ func addMovesToBoard(current *matrix.DenseMatrix, newMoves *matrix.DenseMatrix, 
 		for j := 0; j < 15; j++ {
 			if newMoves.Get(i, j) != 0 && result.Get(i, j) == float64(0) {
 				// fmt.Println("    Adding ", steps, " to (", i, ", ", j, ")")
+				// if HoleBoard.Get(i, j) > 0 {
+				// 	result.Set(i, j, 500)
+				// } else {
 				result.Set(i, j, float64(steps))
+				// }
 
 			}
 		}
@@ -517,6 +523,16 @@ func GenerateMoveBoard(piece byte, x int, y int) *matrix.DenseMatrix {
 	}
 	result = shiftMatrix(singleMove, x-8, y-8)
 
+	for i := 0; i < 15; i++ {
+		for j := 0; j < 15; j++ {
+			if HoleBoard.Get(j, i) > float64(0) {
+				result.Set(j, i, 500)
+			}
+		}
+	}
+
+	// fmt.Println(HoleBoard.String())
+
 	// Get the secondary moves
 	for n := 1; n < 8; n++ {
 		// fmt.Println("Current State: \n", result.String())
@@ -542,6 +558,15 @@ func GenerateMoveBoard(piece byte, x int, y int) *matrix.DenseMatrix {
 		}
 	}
 
-	// fmt.Println(result.GetMatrix(7, 0, 8, 8).String())
-	return result.GetMatrix(7, 0, 8, 8)
+	// fmt.Println(result.String())
+	result = result.GetMatrix(7, 0, 8, 8)
+	// for i := 0; i < 8; i++ {
+	// 	for j := 0; j < 8; j++ {
+	// 		if HoleBoard.Get(i, j) == 1 {
+	// 			result.Set(j, i, 500)
+	// 		}
+	// 	}
+	// }
+
+	return result
 }

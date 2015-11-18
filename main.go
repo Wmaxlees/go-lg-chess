@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"github.com/Wmaxlees/go-lg-chess/boards"
+	matrix "github.com/skelterjohn/go.matrix"
 	"os"
 	"strconv"
 	"strings"
@@ -195,5 +196,63 @@ func getOptions() {
 		}
 
 		fmt.Println("Length must be a positive integer")
+	}
+
+	fmt.Println("\nEnter Holes {a-h}{1-8}")
+	fmt.Println("Enter anything else to continue")
+	boards.HoleBoard = matrix.MakeDenseMatrix(make([]float64, 225, 225), 15, 15)
+	for {
+		fmt.Print(":: ")
+		text, _ := reader.ReadString('\n')
+		text = strings.TrimSpace(text)
+
+		if len(text) > 2 {
+			break
+		}
+
+		var x int
+		var y int
+
+		if strings.HasPrefix(text, "a") {
+			x = 0
+		} else if strings.HasPrefix(text, "b") {
+			x = 1
+		} else if strings.HasPrefix(text, "c") {
+			x = 2
+		} else if strings.HasPrefix(text, "d") {
+			x = 3
+		} else if strings.HasPrefix(text, "e") {
+			x = 4
+		} else if strings.HasPrefix(text, "f") {
+			x = 5
+		} else if strings.HasPrefix(text, "g") {
+			x = 6
+		} else if strings.HasPrefix(text, "h") {
+			x = 7
+		} else {
+			break
+		}
+
+		if strings.HasSuffix(text, "1") {
+			y = 14
+		} else if strings.HasSuffix(text, "2") {
+			y = 13
+		} else if strings.HasSuffix(text, "3") {
+			y = 12
+		} else if strings.HasSuffix(text, "4") {
+			y = 11
+		} else if strings.HasSuffix(text, "5") {
+			y = 10
+		} else if strings.HasSuffix(text, "6") {
+			y = 9
+		} else if strings.HasSuffix(text, "7") {
+			y = 8
+		} else if strings.HasSuffix(text, "8") {
+			y = 7
+		} else {
+			break
+		}
+
+		boards.HoleBoard.Set(y, x, 500)
 	}
 }
