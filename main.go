@@ -35,7 +35,8 @@ func getOptions() {
 		fmt.Println("    Knight")
 		fmt.Println("    Bishop")
 		fmt.Println("    Queen")
-		fmt.Println("    King\n")
+		fmt.Println("    King")
+		fmt.Println("    Puppy\n")
 		fmt.Print(":: ")
 		text, _ := reader.ReadString('\n')
 		text = strings.ToLower(text)
@@ -58,6 +59,9 @@ func getOptions() {
 			break
 		} else if text == "king" {
 			piece = boards.King
+			break
+		} else if text == "puppy" {
+			piece = boards.Puppy
 			break
 		} else {
 			fmt.Println("Invalid Piece")

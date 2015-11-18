@@ -18,6 +18,7 @@ var singleKnightMove *matrix.DenseMatrix
 var singleBishopMove *matrix.DenseMatrix
 var singleQueenMove *matrix.DenseMatrix
 var singleKingMove *matrix.DenseMatrix
+var singlePuppyMove *matrix.DenseMatrix
 
 var myPlot *plot.Plot
 var total int
@@ -76,6 +77,8 @@ func getNextLocations(piece byte, allMoves *matrix.DenseMatrix, ellipse *matrix.
 		singleMove = singleQueenMove
 	case King:
 		singleMove = singleKingMove
+	case Puppy:
+		singleMove = singlePuppyMove
 	}
 	singleMove = shiftMatrix(singleMove, x-8, y-8)
 	singleMove = singleMove.GetMatrix(7, 0, 8, 8)
@@ -390,6 +393,24 @@ func InitMatrices() {
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	}, 15, 15)
+
+	singlePuppyMove = matrix.MakeDenseMatrix([]float64{
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	}, 15, 15)
 }
 
 func shiftMatrix(A *matrix.DenseMatrix, x int, y int) *matrix.DenseMatrix {
@@ -479,6 +500,7 @@ const (
 	Bishop byte = iota
 	Queen  byte = iota
 	King   byte = iota
+	Puppy  byte = iota
 )
 
 func addMovesToBoard(current *matrix.DenseMatrix, newMoves *matrix.DenseMatrix, steps int) *matrix.DenseMatrix {
@@ -520,6 +542,8 @@ func GenerateMoveBoard(piece byte, x int, y int) *matrix.DenseMatrix {
 		singleMove = singleQueenMove
 	case King:
 		singleMove = singleKingMove
+	case Puppy:
+		singleMove = singlePuppyMove
 	}
 	result = shiftMatrix(singleMove, x-8, y-8)
 
