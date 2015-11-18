@@ -31,3 +31,6 @@ func (node *Node) SetStep(step int) {
 func (node *Node) AddChild(child *Node) {
 	node.children = append(node.children, child)
 }
+func (node *Node) GetChildren() []*Node {
+	return node.children
+}

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/Wmaxlees/go-lg-chess/boards"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -13,12 +14,13 @@ var startX int
 var startY int
 var goalX int
 var goalY int
+var maxLength int
 
 func main() {
 	getOptions()
 
 	boards.InitMatrices()
-	boards.GetEllipse(piece, startX, startY, goalX, goalY)
+	boards.GetEllipse(piece, startX, startY, goalX, goalY, maxLength)
 }
 
 func getOptions() {
@@ -179,5 +181,19 @@ func getOptions() {
 			break
 		}
 		fmt.Println("Invalid Location")
+	}
+
+	for {
+		fmt.Print("\nLength of Trajectories: ")
+		text, _ := reader.ReadString('\n')
+		text = strings.TrimSpace(text)
+
+		var err error
+		maxLength, err = strconv.Atoi(text)
+		if err == nil && maxLength > 0 {
+			break
+		}
+
+		fmt.Println("Length must be a positive integer")
 	}
 }
