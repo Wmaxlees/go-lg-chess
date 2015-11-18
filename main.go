@@ -22,6 +22,8 @@ func main() {
 
 	boards.InitMatrices()
 	boards.GetEllipse(piece, startX, startY, goalX, goalY, maxLength)
+
+	fmt.Println("Output sent to 'results.png'")
 }
 
 func getOptions() {

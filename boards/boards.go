@@ -558,7 +558,7 @@ func GenerateMoveBoard(piece byte, x int, y int) *matrix.DenseMatrix {
 	// fmt.Println(HoleBoard.String())
 
 	// Get the secondary moves
-	for n := 1; n < 8; n++ {
+	for n := 1; n < 20; n++ {
 		// fmt.Println("Current State: \n", result.String())
 		for i := 0; i < 15; i++ {
 			for j := 0; j < 15; j++ {
